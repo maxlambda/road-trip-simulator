@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <style>
+      #map {
+        height: 100%;
+      }
+      .sampleConfig {
+        width: 90%;
+        height: 18%;
+        margin-left: 15px;
+      }
+      #config {
+        width: 90%;
+        height: 20%;
+        margin-left: 15px;
+      }
+      .buttons {
+        padding: 15px;
+      }
+      .info {
+        padding: 15px;
+      }
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Set config:</h2>
+    <p class="info">
+      After clicking any of these buttons, click anywhere on the map to set the
+      coordinates for that value. Make sure to set the waypoints in the desired
+      order.
+    </p>
+    <div class="buttons">
+      <button id="originButton" onclick="addOrigin()">Set origin</button>
+      <button id="destinationButton" onclick="addDestination()">
+        Set destination
+      </button>
+      <button id="waypointButton" onclick="addWaypoint()">
+        Add a waypoint
+      </button>
+    </div>
+    <textarea id="config">
+{
+    "travelMode": "DRIVING"
+}</textarea
+    >
+    <p class="info">
+      Make sure you have at least an origin and destination set above. Then,
+      copy the above config and proceed to step 2, pasting the config into step
+      2's text area.
+    </p>
+    <h2>Sample config:</h2>
+    <textarea class="sampleConfig">
+{
+    "origin": "-32.93198011937929, 151.753619140625",
+    "destination": "-32.023727839402625, 151.9568662109375",
+    "waypoints": [
+        {
+            "location": "-32.75660764385219, 152.0777158203125"
+        },
+      
+        {
+            "location": "-32.15403827680063, 152.478716796875"
+        }
+      
+    ],
+    "travelMode": "DRIVING"
+}</textarea
+    >
+
+    <div id="map"></div>
+    <script>
+      let map;
+      let mapListener;
+
+      let originMarker;
+      let destinationMarker;
+      let waypointMarkers = [];
+
+      function initMap() {
+        map = new google.maps.Map(document.getElementById("map"), {
+          center: { lat: -34.397, lng: 150.644 },
+          zoom: 8,
+        });
+      }
+
+      function addOrigin() {
+        // Remove current origin marker
+        if (originMarker) {
+          originMarker.setMap(null);
+        }
+
+        document.getElementById("originButton").disabled = true;
+
+        // Add new origin marker
+        mapListener = map.addListener("click", function (e) {
+          console.log(e);
+          originMarker = new google.maps.Marker({
+            map: map,
+            position: e.latLng,
+          });
+          updateConfig();
+          google.maps.event.removeListener(mapListener);
+          document.getElementById("originButton").disabled = false;
+        });
+      }
+
+      function addDestination() {
+        // Remove current destination marker
+        if (destinationMarker) {
+          destinationMarker.setMap(null);
+        }
+
+        document.getElementById("destinationButton").disabled = true;
+
+        // Add new destination marker
+        mapListener = map.addListener("click", function (e) {
+          console.log(e);
+          destinationMarker = new google.maps.Marker({
+            map: map,
+            position: e.latLng,
+          });
+          updateConfig();
+          google.maps.event.removeListener(mapListener);
+          document.getElementById("destinationButton").disabled = false;
+        });
+      }
+
+      function addWaypoint() {
+        document.getElementById("waypointButton").disabled = true;
+
+        // Add new waypoint marker
+        mapListener = map.addListener("click", function (e) {
+          let newWaypointMarker;
+          console.log(e);
+          newWaypointMarker = new google.maps.Marker({
+            map: map,
+            position: e.latLng,
+          });
+          waypointMarkers.push(newWaypointMarker);
+          updateConfig();
+          google.maps.event.removeListener(mapListener);
+          document.getElementById("waypointButton").disabled = false;
+        });
+      }
+
+      function updateConfig() {
+        let originCoords;
+        let destinationCoords;
+        let waypointCoords;
+
+        if (originMarker) {
+          originCoords =
+            originMarker.getPosition().lat() +
+            ", " +
+            originMarker.getPosition().lng();
+        }
+        if (destinationMarker) {
+          destinationCoords =
+            destinationMarker.getPosition().lat() +
+            ", " +
+            destinationMarker.getPosition().lng();
+        }
+
+        if (waypointMarkers.length > 0) {
+          waypointCoords = `"waypoints": [`;
+
+          waypointMarkers.forEach((marker, i) => {
+            if (i + 1 != waypointMarkers.length) {
+              let newWaypointString = `
+        {
+            "location": "${
+              marker.getPosition().lat() + ", " + marker.getPosition().lng()
+            }"
+        },
+      `;
+              waypointCoords += newWaypointString;
+            } else {
+              let newWaypointString = `
+        {
+            "location": "${
+              marker.getPosition().lat() + ", " + marker.getPosition().lng()
+            }"
+        }
+      `;
+              waypointCoords += newWaypointString;
+            }
+          });
+
+          waypointCoords += `
+    ],`;
+        }
+
+        document.getElementById("config").textContent = `{
+    ${originCoords ? `"origin": "${originCoords}",` : ""}
+    ${destinationCoords ? `"destination": "${destinationCoords}",` : ""}
+    ${waypointMarkers.length > 0 ? waypointCoords : ""}
+    "travelMode": "DRIVING"
+}`;
+      }
+    </script>
+    <script
+      async
+      defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyALO1_o22qjcW8h762hcVaj3Tj8duORWsk&callback=initMap"
+    ></script>
+  </body>
+</html>
