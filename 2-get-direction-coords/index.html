@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <style>
+      #map {
+        height: 100%;
+      }
+      .calculate {
+        margin: 15px;
+        padding: 10px;
+      }
+      #config {
+        width: 90%;
+        height: 20%;
+        margin-left: 15px;
+      }
+      .info {
+        padding: 15px;
+      }
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Paste config:</h2>
+    <p class="info">
+      Again, for the map below to show, you must replace YOUR_API_KEY in this
+      index.html file with a Google Maps API key first. Then, paste the config
+      from step 1 into the following text area, then press calculate.
+    </p>
+    <textarea id="config"> </textarea>
+    <button class="calculate" onclick="calculate()">Calculate</button>
+    <div id="map"></div>
+    <script>
+      function initMap() {
+        map = new google.maps.Map(document.getElementById("map"), {
+          center: { lat: -34.397, lng: 150.644 },
+          zoom: 8,
+        });
+      }
+
+      function calculate() {
+        window.alert("fe");
+      }
+    </script>
+    <script
+      async
+      defer
+      src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"
+    ></script>
+  </body>
+</html>
