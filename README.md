@@ -16,3 +16,6 @@ A Google API key is required for this. Rememeber to replace instances of YOUR_AP
 2. Calculate the directions from the origin to the waypoints, then to the destination. Again: to do this, open `2-get-direction-coords/index.html` in your browser and follow the instructions shown. This should give you a massive list of coordinates of 10-meter intervals along the route from your origin to each waypoint, and then to your final destination. Copy this list to your clipboard.
 3. Navigate to `3-fetch-images` and save the copied text to the file called locations.txt. It's prefilled with sample location coordinates, but you can replace it with your own data. Run `3-fetch-images/fetch_images.py` to fetch every image from your location list. By default, it will be saved under a `generatedImages` folder. You can change that and other settings in `config.json`. You should add your Google API key in that file. Note that you can only download 25 000 images per day, so make sure your locations.txt file is under 25000 lines!
 4. Congrats, you now have an image sequence that simulates a road trip!
+
+## Demo walkthrough of steps:
+
