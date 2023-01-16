@@ -1,0 +1,5 @@
+{
+    "locationsFile": "locations.txt",
+    "streetImagesDir": "generatedImages",
+    "apiKey": "YOUR_API_KEY"
+}

@@ -14,22 +14,5 @@ A Google API key is required for this. Rememeber to replace instances of YOUR_AP
 
 1. Find an interesting road trip to simulate! Set the config for the origin, destination, and any waypoints that you want to pass through within your road trip. To do this, open `/1-get-config/index.html` in your browser and follow the instructions shown. This should give you config coordinates to copy in the text area.
 2. Calculate the directions from the origin to the waypoints, then to the destination. Again: to do this, open `2-get-direction-coords/index.html` in your browser and follow the instructions shown. This should give you a massive list of coordinates of 10-meter intervals along the route from your origin to each waypoint, and then to your final destination. Copy this list to your clipboard.
-3. Navigate to `3-fetch-images` and save the copied text to a file called coords.txt. Run `3-fetch-images/main.py` to fetch every image from your location list. Note that you can only download 25 000 images per day.
-4. Navigate to `4-display` to display the road trip!
-
-### Sample config.json
-
-```
-{
-    "locationsFile": "locations/locations.txt",
-    "streetImagesDir": "assets/images",
-    "apiKey": "abc123",
-    "origin": "43.651505490174166, -79.37490248659148",
-    "destination": "43.763642756272525, -79.15552584593397",
-    "stops": [
-        {
-            "location": "43.703358050686006, -79.25368477805685"
-        }
-    ]
-}
-```
+3. Navigate to `3-fetch-images` and save the copied text to the file called locations.txt. It's prefilled with sample location coordinates, but you can replace it with your own data. Run `3-fetch-images/fetch_images.py` to fetch every image from your location list. By default, it will be saved under a `generatedImages` folder. You can change that and other settings in `config.json`. You should add your Google API key in that file. Note that you can only download 25 000 images per day, so make sure your locations.txt file is under 25000 lines!
+4. Congrats, you now have an image sequence that simulates a road trip!
