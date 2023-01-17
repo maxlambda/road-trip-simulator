@@ -1,5 +1,4 @@
-# road-trip-simulator
-
+# Road Trip Simulator
 <img src="https://user-images.githubusercontent.com/57158526/212792386-10f9d1dd-6184-44b8-8ba6-3bb3ef58bed5.gif" width="400" height="400"/>
 
 
