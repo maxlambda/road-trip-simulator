@@ -4,7 +4,7 @@
 
 Simulate road trips using this tool.
 
-These are some scripts to compute route coordinates and scrape Google Street View images to simulates road trips via concatenated image sequences.
+These are some scripts to compute route coordinates and scrape Google Street View images to simulate road trips via concatenated image sequences.
 
 <!-- ![roadtrip demo](https://user-images.githubusercontent.com/57158526/133194920-0f64fe78-2169-4752-8fe5-11712b616b60.gif) -->
 
